@@ -1,5 +1,6 @@
 'use client'
 import { Box, Button, Stack, TextField } from '@mui/material'
+import MuiMarkdown from 'mui-markdown'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -63,8 +64,8 @@ export default function Home() {
     >
       <Stack
         direction="column"
-        width="600px"
-        height="700px"
+        width="750px"
+        height="850px"
         border="1px solid black"
         p={2}
         spacing={3}
@@ -93,8 +94,9 @@ export default function Home() {
                 color="white"
                 borderRadius={16}
                 p={3}
+                maxWidth="80%"
               >
-                {message.content}
+                <MuiMarkdown>{message.content}</MuiMarkdown>
               </Box>
             </Box>
           ))}
@@ -105,8 +107,11 @@ export default function Home() {
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') sendMessage()
+            }}
           ></TextField>
-          <Button variant="contained" onClick={sendMessage}>
+          <Button variant="contained" onClick={sendMessage} type="submit">
             Send
           </Button>
         </Stack>
